@@ -44,19 +44,25 @@ async def pre(ctx, new_prefix, *arg):
 
 # Insult command
 @bot.command(description="Insults someone who is passed in as an argument")
-async def insult(ctx, user:discord.Member, *args):
-    await ctx.send(f'{user.mention()} {random.choice(msg.insults)}')
+async def insult(ctx, user: discord.User):
+    await ctx.send('Insulting...')
+    await ctx.send(f'{random.choice(msg.insults)}')
+    await ctx.send(f'{user.mention()}')
+    await ctx.send(f'{random.choice(msg.insults)}')
+
+    await ctx.send('Insulted 1')
     for user in args:
         try:
             await ctx.send(f'{user.mention()} {random.choice(msg.insults)}')
         except: pass
+    await ctx.send('Insulted')
 
 
 # Command not found error!
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
-        await ctx.send(f'{ctx} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
+        await ctx.send(f'{ctx.invoked_with} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
 
 
 bot.run(config.TOKEN)
