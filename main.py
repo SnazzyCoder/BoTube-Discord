@@ -21,14 +21,11 @@ async def ping(ctx):
 
 # Who is commands
 @bot.command()
-async def who(ctx, *args):
-    args = args[0:]
-    print(*args)
-    if ('i' in args) or ('I' in args):
-        print(f"{ctx.author.mention} is the greatest Discorder that's been alive.")
-        await ctx.send(f"{ctx.author.mention} is the greatest Discorder that's been alive.")
+async def who(ctx, helping_verb, user: discord.User):
+    if helping_verb.casefold() == 'i':
+        await ctx.send(f"{ctx.author.mention} {random.choice(msg.praises)}")
     else:
-        await ctx.send(f"{', '.join([str(i) for i in ctx.message.raw_mentions.mention()])}, stop being spherical dumbass")
+        await ctx.send(f"{user.mention} {random.choice(msg.insults)}")
 
 # change prefix Command
 @bot.command(description="Change prefix to the prefix passed as an argument.")
