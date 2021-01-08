@@ -4,6 +4,7 @@ import messages.general as msg
 from discord.ext import commands
 import discord
 from discord.ext.commands import CommandNotFound
+import random
 
 prefix = 'b!'
 bot = commands.Bot(prefix)
@@ -40,6 +41,15 @@ async def pre(ctx, new_prefix, *arg):
     bot = commands.Bot(prefix)
 
     await ctx.send(f"The prefix has maybe been changed to {new_prefix}")
+
+# Insult command
+@bot.command(description="Insults someone who is passed in as an argument")
+async def insult(ctx, user:discord.Member, *args):
+    await ctx.send(f'{user.mention()} {random.choice(msg.insults)}')
+    for user in args:
+        try:
+            await ctx.send(f'{user.mention()} {random.choice(msg.insults)}')
+        except: pass
 
 
 # Command not found error!

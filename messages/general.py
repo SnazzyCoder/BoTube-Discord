@@ -3,5 +3,9 @@ messages = {
 }
 
 insults = [
-    f'{member.mention()}'
+    ', I bet you were drawn with my left hand',
+    ', you sound like you eat ciggerettes',
+    ', quit being a spherical dumbass',
+    ', you live in your mom’s basement you anti social f****** loser.',
+    ', you sound like a girl'
 ]
