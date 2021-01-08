@@ -16,18 +16,9 @@ async def on_ready():
 # Ping-Pong test Command
 @bot.command()
 async def ping(ctx):
-    await ctx.send('pong')
+    await ctx.send(f"pong {round(bot.latency)}")
 
-# Help Commmand
-@bot.command()
-async def helpp(ctx):
-    await ctx.send(msg.messages['help'])
-
-# Shame Command
-@bot.command()
-async def shame(ctx, arg):
-    await ctx.send(f"Shaming someone is bad. No need to worry {arg}, I'm in no hurry. :D")
-
+# Who is commands
 @bot.command()
 async def who(ctx, *args):
     args = args[0:]
@@ -38,7 +29,8 @@ async def who(ctx, *args):
     else:
         await ctx.send(f"{', '.join([str(i) for i in ctx.message.raw_mentions.mention()])}, stop being spherical dumbass")
 
-@bot.command()
+# change prefix Command
+@bot.command(description="Change prefix to the prefix passed as an argument.")
 async def pre(ctx, new_prefix, *arg):
     if arg:
         await ctx.send(f'This command only requries 1 argument in the manner `{pre}prefix <new prefix>`')
@@ -47,12 +39,14 @@ async def pre(ctx, new_prefix, *arg):
     prefix = new_prefix
     bot = commands.Bot(prefix)
 
+    await ctx.send(f"The prefix has maybe been changed to {new_prefix}")
+
 
 # Command not found error!
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
-        await ctx.send(f'{ctx.message} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
+        await ctx.send(f'{ctx} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
 
 
 bot.run(config.TOKEN)
