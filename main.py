@@ -40,23 +40,22 @@ async def pre(ctx, new_prefix, *arg):
     prefix = new_prefix
     bot = commands.Bot(prefix)
 
-    await ctx.send(f"The prefix has maybe been changed to {new_prefix}")
+    await ctx.send(f"The prefix has not ! been changed to {new_prefix}")
 
 # Insult command
 @bot.command(description="Insults someone who is passed in as an argument")
-async def insult(ctx, user: discord.User):
-    await ctx.send('Insulting...')
-    await ctx.send(f'{random.choice(msg.insults)}')
-    await ctx.send(f'{user.mention()}')
-    await ctx.send(f'{random.choice(msg.insults)}')
+async def insult(ctx, user: discord.User, *args):
 
-    await ctx.send('Insulted 1')
-    for user in args:
-        try:
-            await ctx.send(f'{user.mention()} {random.choice(msg.insults)}')
-        except: pass
-    await ctx.send('Insulted')
+    await ctx.send(f'{user.mention} {random.choice(msg.insults)}')
 
+    if type(user) != discord.User:
+        await ctx.send(f'command has to be used as ```{prefix}insult <user_mention>```')
+
+
+# Say command
+@bot.command()
+async def say(ctx, *, message):
+    await ctx.send(f'{ctx.author.mention} says:-\n\n{message}')
 
 # Command not found error!
 @bot.event
