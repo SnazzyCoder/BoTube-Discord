@@ -5,9 +5,17 @@ from discord.ext import commands
 import discord
 from discord.ext.commands import CommandNotFound
 import random
+import json
+import praw
 
 prefix = 'b!'
 bot = commands.Bot(prefix)
+
+# Reddit PRAW config
+
+reddit = praw.Reddit(client_id='o87yabkXGElJTg',
+                     client_secret='4BemiUHbyhoCg5W07yLndQbXLSgy7g',
+                     user_agent='BoTube-Discord')
 
 # Ready Message Printer
 @bot.event
@@ -54,11 +62,23 @@ async def insult(ctx, user: discord.User, *args):
 async def say(ctx, *, message):
     await ctx.send(f'{ctx.author.mention} says:-\n\n{message}')
 
+# Meme Command
+@bot.command(pass_context=True)
+async def meme(ctx):
+    memes_submissions = reddit.subreddit('dankmemes').hot()
+    post_to_pick = random.randint(1, 10)
+    for i in range(0, post_to_pick):
+        submission = next(x for x in memes_submissions if not x.stickied)
+
+    await ctx.send(submission.url)
+
+
+'''---------Commands-end-here--------'''
+
 # Command not found error!
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         await ctx.send(f'{ctx.invoked_with} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
-
 
 bot.run(config.TOKEN)
