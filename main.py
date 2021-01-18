@@ -65,7 +65,17 @@ async def say(ctx, *, message):
 # Meme Command
 @bot.command(pass_context=True)
 async def meme(ctx):
-    memes_submissions = reddit.subreddit('dankmemes').hot()
+    subreddits = ["AdviceAnimals",
+            "MemeEconomy",
+            "ComedyCemetery",
+            "memes",
+            "dankmemes",
+            "PrequelMemes",
+            "terriblefacebookmemes",
+            "PewdiepieSubmissions",
+            "funny",
+            "teenagers"]
+    memes_submissions = reddit.subreddit(random.choice(subreddits)).hot()
     post_to_pick = random.randint(1, 10)
     for i in range(0, post_to_pick):
         submission = next(x for x in memes_submissions if not x.stickied)
