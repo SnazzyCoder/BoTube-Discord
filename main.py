@@ -67,7 +67,7 @@ async def say(ctx, *, message):
 async def meme(ctx, number:int=1):
     if number < 10:
         await ctx.send(f'No, {number} is too much memes.')
-        break
+        return
     for _ in range(number):
         subreddits = ["AdviceAnimals",
                 "MemeEconomy",
