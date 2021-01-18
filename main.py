@@ -65,7 +65,7 @@ async def say(ctx, *, message):
 # Meme Command
 @bot.command(pass_context=True)
 async def meme(ctx, number:int=1):
-    if number < 10:
+    if number > 10:
         await ctx.send(f'No, {number} is too much memes.')
         return
     for _ in range(number):
