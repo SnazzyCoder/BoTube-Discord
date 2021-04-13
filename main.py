@@ -1,28 +1,28 @@
 from discord import Client
-import config
 import messages.general as msg
 from discord.ext import commands
 import discord
 from discord.ext.commands import CommandNotFound
 import random
 import json
-import praw
 import os
+import praw
 
 prefix = 'b!'
 bot = commands.Bot(prefix)
 
 # Get Client secret environment variable
-CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+TOKEN = os.environ.get('TOKEN')
 
 # Check if client secret exists
-if not CLIENT_SECRET:
-    print("Warning: Client scret not defined, execute command 'export CLIENT_SECRET=\"<Your Client Secret Here>\"' ")
+if not TOKEN:
+    print("Warning: Discord Token not defined, execute command 'export TOKEN=\"<Your TOKEN Here>\"' ")
     quit()
 
 # Reddit PRAW config
+
 reddit = praw.Reddit(client_id='o87yabkXGElJTg',
-                    client_secret=,
+                    client_secret='4BemiUHbyhoCg5W07yLndQbXLSgy7g',
                     user_agent='BoTube-Discord')
 
 # Ready Message Printer
@@ -103,4 +103,4 @@ async def on_command_error(ctx, error):
     if isinstance(error, CommandNotFound):
         await ctx.send(f'{ctx.invoked_with} is not recognized as a valid command.\n\n Send `{prefix}help` to know what I can do')
 
-bot.run(config.TOKEN)
+bot.run(TOKEN)
