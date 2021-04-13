@@ -7,15 +7,23 @@ from discord.ext.commands import CommandNotFound
 import random
 import json
 import praw
+import os
 
 prefix = 'b!'
 bot = commands.Bot(prefix)
 
-# Reddit PRAW config
+# Get Client secret environment variable
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
+# Check if client secret exists
+if not CLIENT_SECRET:
+    print("Warning: Client scret not defined, execute command 'export CLIENT_SECRET=\"<Your Client Secret Here>\"' ")
+    quit()
+
+# Reddit PRAW config
 reddit = praw.Reddit(client_id='o87yabkXGElJTg',
-                     client_secret='4BemiUHbyhoCg5W07yLndQbXLSgy7g',
-                     user_agent='BoTube-Discord')
+                    client_secret=,
+                    user_agent='BoTube-Discord')
 
 # Ready Message Printer
 @bot.event
